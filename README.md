@@ -11,7 +11,6 @@ This project is built using the following technologies:
 - SQLAlchemy ORM
 - PostgreSQL database with local SQLite fallback for development
 - JWT authentication
-- 
 
 ### Setup
 1. Create a virtual environment and install the requirements

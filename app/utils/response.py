@@ -1,3 +1,8 @@
+from flask import make_response
+
+from app.utils.logger import get_request_id
+
+
 class Response:
     HTTP_SUCCESS = 200
     HTTP_ACCEPTED = 202
