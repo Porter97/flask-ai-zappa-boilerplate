@@ -61,3 +61,36 @@ def test(coverage, test_names):
 @app.shell_context_processor
 def make_shell_context():
     return dict(db=db)
+
+
+@app.cli.command()
+def init_opensearch():
+    from app.utils.opensearch_utils.indices import create_index
+    from app.utils.opensearch_utils.indices.templates.document_index import create_document_index_template
+    from app.utils.opensearch_utils.indices.templates.chat_history_index import create_chat_history_index_template
+    from app.utils.opensearch_utils.session import opensearch_session
+
+    indices = [{
+        'index_name': os.environ.get('DOCUMENT_INDEX'),
+        'template': create_document_index_template()
+    }, {
+        'index_name': os.environ.get('CHAT_HISTORY_INDEX'),
+        'template': create_chat_history_index_template()
+    }]
+
+    try:
+        es = opensearch_session()
+    except Exception as e:
+        print('Failed to initialize OpenSearch')
+        print(e)
+        return 1
+
+    for index in indices:
+        if not es.indices.exists(index=index['index_name']):
+            create_index(es, index['template'])
+
+    print('OpenSearch initialized successfully')
+
+    return 0
+
+

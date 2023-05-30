@@ -9,6 +9,16 @@ class Config:
     SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True}
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    # OpenSearch
+    OPENSEARCH_URL = os.environ.get('OPENSEARCH_URL')
+    OPENSEARCH_USER = os.environ.get('OPENSEARCH_USER')
+    OPENSEARCH_PASSWORD = os.environ.get('OPENSEARCH_PASSWORD')
+    DOCUMENT_INDEX = os.environ.get('DOCUMENT_INDEX')
+    CHAT_HISTORY_INDEX = os.environ.get('CHAT_HISTORY_INDEX')
+
+    # Embeddings
+    KNN_DIMENSIONS = os.environ.get('KNN_DIMENSIONS', 1536)
+
     # Logging
     LOG_LEVEL = os.environ.get('LOG_LEVEL', 'DEBUG')
 
